@@ -1,0 +1,24 @@
+def distance_vector_routing(nodes, matrix):
+    for src in range(len(nodes)):
+        dist = matrix[src][:]  # Distance vector for the source router
+        for _ in range(len(nodes) - 1):
+            for u in range(len(nodes)):
+                for v in range(len(nodes)):
+                    if dist[u] + matrix[u][v] < dist[v]:
+                        dist[v] = dist[u] + matrix[u][v]
+        
+        # Display routing table for each router
+        print(f"\nRouting Table for Router {nodes[src]}:")
+        print(f"{'Destination':<12}{'Cost':<6}")
+        print("-" * 20)
+        for dest in range(len(nodes)):
+            print(f"{nodes[dest]:<12}{dist[dest]:<6}")
+        print()
+
+if __name__ == "__main__":
+    nodes = input("Enter router names (space-separated): ").split()
+    n = len(nodes)
+    print("Enter the distance matrix row by row (use 999 for infinity):")
+    matrix = [list(map(int, input().split())) for _ in range(n)]
+    
+    distance_vector_routing(nodes, matrix)

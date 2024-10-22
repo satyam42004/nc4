@@ -1,0 +1,9 @@
+import math
+
+ip = input("Enter the IP address: ")
+subnets = int(input("Enter number of subnets: "))
+mask = 32 - math.ceil(math.log2(subnets))  # Calculate the number of bits for the network
+subnet_mask = (0xFFFFFFFF << (32 - mask)) & 0xFFFFFFFF  # Create subnet mask
+
+# Display the subnet mask in dotted decimal format
+print(f"Subnet Mask: {subnet_mask >> 24 & 255}.{subnet_mask >> 16 & 255}.{subnet_mask >> 8 & 255}.0")
